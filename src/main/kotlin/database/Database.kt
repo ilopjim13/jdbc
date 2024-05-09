@@ -9,7 +9,7 @@ class DatabaseTimeoutException(val error:String): Exception()
 class SqlErrorException(val error:String): Exception()
 
 object Database {
-    private const val URL = "jdbc:h2:.\\default"
+    private const val URL = "jdbc:h2:./default"
     private const val USER = "user"
     private const val PASSWORD = "user"
 
