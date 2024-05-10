@@ -5,9 +5,6 @@ import java.sql.DriverManager
 import java.sql.SQLException
 import java.sql.SQLTimeoutException
 
-class DatabaseTimeoutException(val error:String): Exception()
-class SqlErrorException(val error:String): Exception()
-
 object Database {
     private const val URL = "jdbc:h2:./default"
     private const val USER = "user"
@@ -30,5 +27,7 @@ object Database {
         } catch (e: SQLException) {
             throw SqlErrorException("Error de SQL: ${e.message}")
         }
-
 }
+
+class DatabaseTimeoutException(val error:String): Exception()
+class SqlErrorException(val error:String): Exception()

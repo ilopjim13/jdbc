@@ -1,12 +1,13 @@
 package dao
 
 import database.Database
+import output.IOutput
 import product.Product
 import java.sql.SQLException
 
-class ProductDAO {
+class ProductDAO(private val console:IOutput):IProductoDAO {
 
-    fun createProduct(product: Product):Product? {
+    override fun createProduct(product: Product):Product? {
         val sql = "INSERT INTO PRODUCTS (id, name, price, description, brand, category) VALUES (?, ?, ?, ?, ?, ?)"
         try {
             Database.getConnection().use {conn ->
@@ -21,7 +22,7 @@ class ProductDAO {
                     if (rs == 1) {
                         return product
                     }else{
-                        //console.showMessage("**ERROR** insert query failed! ($rs records inserted)")
+                        console.showMessage("**ERROR** insert query failed! ($rs records inserted)")
                         return null
                     }
                 }
@@ -29,7 +30,7 @@ class ProductDAO {
 
 
         } catch (e: SQLException) {
-            //console.showMessage("**ERROR** Insert query failed! (${e.message})")
+            console.showMessage("**ERROR** Insert query failed! (${e.message})")
             return null
         }
     }
